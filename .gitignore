@@ -1,9 +1,29 @@
+# Python
 venv/
-.env
 __pycache__/
 *.pyc
+*.pyo
+*.egg-info/
+
+# Environment
+.env
+
+# IDE
 .idea/
 .vscode/
+*.swp
+
+# Data (too large for git)
 data/
 results/
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# ChromaDB
+*.sqlite3

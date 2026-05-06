@@ -1,55 +1,85 @@
-# Graph RAG Hackathon
+# GraphRAG Benchmark
 
-This repository contains scripts and data pipelines for the Graph RAG Hackathon project. The goal of this project is to compare raw LLM responses with Graph Retrieval-Augmented Generation (Graph RAG) approaches for answering complex domain-specific questions (e.g., biomedical and cancer biology).
+A production-grade benchmarking system comparing **Raw LLM**, **Basic RAG**, **Advanced RAG**, and **GraphRAG** pipelines for answering biomedical research questions. Built with Gemini 2.5 Flash, ChromaDB, and React.
+
+## Pipelines
+
+| Pipeline | Description | Retrieval | Features |
+|---|---|---|---|
+| **Raw LLM** | Direct LLM query, no context | None | Baseline for comparison |
+| **Agentic LLM** | Multi-step reasoning (think/answer/reflect/refine) | None | Self-critique, confidence scoring |
+| **Basic RAG** | Simple vector search + LLM | ChromaDB | Fixed-size chunks |
+| **Advanced RAG** | Hybrid retrieval + reranking + compression | BM25 + Vector + HyDE + Cross-encoder | Hierarchical chunks, citations, context compression |
+| **GraphRAG** | Knowledge graph-based retrieval | TigerGraph Savanna | Entity relationships (external) |
+
+## Quick Start
+
+### 1. Backend
+```bash
+# Activate virtual environment
+.\venv\Scripts\activate
+
+# Install dependencies
+pip install google-genai python-dotenv fastapi uvicorn sentence-transformers chromadb rank-bm25 scikit-learn
+
+# Add your API key to .env
+echo GEMINI_API_KEY=your_key_here > .env
+
+# Start the API server
+python -m backend.main
+```
+
+### 2. Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open http://localhost:5173 to access the dashboard.
 
 ## Project Structure
 
-- `download_dataset.py`: Script to fetch the necessary datasets for processing.
-- `process_dataset.py`: Script to clean and preprocess the downloaded data, preparing it for the Graph RAG pipeline.
-- `pipeline1_raw_llm.py`: A baseline script that queries the Gemini LLM directly with questions (without any retrieval context) to measure raw LLM performance, token usage, latency, and cost.
-- `test_question.json`: A set of test questions and their reference answers used for evaluating the pipelines.
-- `graphrag/`: Directory intended to contain the core logic for the Graph RAG implementation.
-- `data/`: Directory for storing raw and processed datasets (ignored by git).
-- `results/`: Directory for storing the output metrics and answers from the pipelines (ignored by git).
-
-## Setup Instructions
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Sud2005/graph-rag.git
-   cd graph-rag
-   ```
-
-2. **Set up a virtual environment:**
-   ```bash
-   python -m venv venv
-   # On Windows
-   .\venv\Scripts\activate
-   # On macOS/Linux
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies:**
-   ```bash
-   pip install google-genai python-dotenv
-   # Install any other necessary packages such as pandas, networkx, etc.
-   ```
-
-4. **Environment Variables:**
-   Create a `.env` file in the root directory and add your Gemini API key:
-   ```env
-   GEMINI_API_KEY=your_actual_api_key_here
-   ```
-
-## Running the Pipelines
-
-### Baseline: Raw LLM
-To run the baseline pipeline that evaluates how the LLM answers the test questions without retrieval context:
-```bash
-python pipeline1_raw_llm.py
 ```
-This will output the answers, metrics, and save a summary in the `results/` folder.
+graphrag-hackathon/
+├── backend/                       # FastAPI backend
+│   ├── main.py                    # API server with all endpoints
+│   ├── models.py                  # Pydantic request/response schemas
+│   ├── chunking.py                # Hierarchical semantic chunking
+│   ├── retrieval.py               # Hybrid BM25+Vector+HyDE+Reranking
+│   ├── pipeline1_agent.py         # Agentic multi-step LLM
+│   ├── pipeline2_advanced_rag.py  # Advanced RAG with citations
+│   └── evaluation.py              # RAGAS + BERTScore + LLM Judge
+├── frontend/                      # React + Tailwind dashboard
+├── data/                          # Papers and vector DBs
+├── results/                       # Pipeline outputs
+├── pipeline1_raw_llm.py           # Simple LLM baseline
+├── pipeline2_basic_rag.py         # Basic RAG baseline
+├── test_question.json             # Test questions with references
+└── setup.md                       # Detailed setup guide
+```
 
-## Future Work
-- Implementation of `pipeline2` focusing on Graph RAG.
-- Integration of knowledge graph construction and retrieval algorithms.
+## API Endpoints
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/` | GET | Health check |
+| `/query/{pipeline}` | POST | Run a single pipeline |
+| `/compare` | POST | Run all pipelines simultaneously |
+| `/evaluate` | POST | Run RAGAS + BERTScore evaluation |
+| `/metrics/summary` | GET | Aggregated benchmark stats |
+| `/stream/{pipeline}?q=...` | GET | SSE streaming |
+
+## Tech Stack
+
+- **LLM**: Gemini 2.5 Flash (google-genai SDK)
+- **Embeddings**: all-MiniLM-L6-v2 (sentence-transformers)
+- **Reranker**: cross-encoder/ms-marco-MiniLM-L-6-v2
+- **Vector DB**: ChromaDB
+- **Backend**: FastAPI + Uvicorn
+- **Frontend**: React + Tailwind CSS + Recharts
+- **Graph DB**: TigerGraph Savanna (Pipeline 3)
+
+## Dataset
+
+63 PubMed open-access papers on cancer genomics covering BRCA1, EGFR, TP53, immunotherapy, and tumor microenvironment. ~2.5M tokens of biomedical research text.
