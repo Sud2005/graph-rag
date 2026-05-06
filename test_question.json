@@ -1,0 +1,27 @@
+[
+    {
+        "id": "q1",
+        "question": "What is the role of BRCA1 gene mutations in breast cancer drug resistance?",
+        "reference_answer": "BRCA1 mutations impair DNA repair mechanisms, leading to genomic instability. While BRCA1-mutated cancers are initially sensitive to platinum-based drugs and PARP inhibitors, resistance can develop through secondary mutations that restore BRCA1 function, upregulation of drug efflux pumps, or activation of alternative DNA repair pathways."
+    },
+    {
+        "id": "q2",
+        "question": "How do targeted therapies for lung cancer work against EGFR mutations?",
+        "reference_answer": "EGFR-targeted therapies like erlotinib and gefitinib block the epidermal growth factor receptor kinase domain, inhibiting downstream signaling pathways that drive cancer cell proliferation. They are most effective in patients with specific activating EGFR mutations such as exon 19 deletions or L858R point mutations."
+    },
+    {
+        "id": "q3",
+        "question": "What biomarkers predict response to immunotherapy in colorectal cancer?",
+        "reference_answer": "Key biomarkers include microsatellite instability high (MSI-H) status, mismatch repair deficiency (dMMR), high tumor mutational burden (TMB), and PD-L1 expression levels. MSI-H colorectal cancers respond dramatically to checkpoint inhibitors like pembrolizumab."
+    },
+    {
+        "id": "q4",
+        "question": "What is the relationship between TP53 mutations and chemotherapy resistance in leukemia?",
+        "reference_answer": "TP53 mutations disrupt apoptotic pathways that chemotherapy drugs rely on to kill cancer cells. In leukemia, TP53-mutated clones are selected for under chemotherapy pressure, leading to treatment resistance. These mutations are associated with complex karyotypes and poor prognosis."
+    },
+    {
+        "id": "q5",
+        "question": "How does tumor microenvironment affect drug delivery in solid tumors?",
+        "reference_answer": "The tumor microenvironment creates physical and biological barriers to drug delivery including high interstitial pressure, abnormal vasculature, dense extracellular matrix, and immunosuppressive cells. These factors reduce drug penetration, promote resistance, and shield cancer cells from immune attack."
+    }
+]
