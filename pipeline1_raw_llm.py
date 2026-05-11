@@ -14,6 +14,41 @@ def count_tokens(text):
     return len(text.split()) * 4 // 3
 
 
+def call_gemini_with_retry(client, prompt: str, retries: int = 3):
+    """Call Gemini API with exponential backoff retry for 503/429 errors."""
+    for attempt in range(retries):
+        try:
+            return client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=prompt
+            )
+        except Exception as e:
+            if "503" in str(e) or "429" in str(e) or "quota" in str(e).lower():
+                if attempt < retries - 1:
+                    print(f"Gemini API unavailable. Retrying in {2 ** attempt}s...")
+                    time.sleep(2 ** attempt)
+                    continue
+                else:
+                    print(f"Gemini API failed after {retries} attempts. Falling back to Groq Llama 3.3 70B...")
+                    try:
+                        import os
+                        from groq import Groq
+                        groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+                        response = groq_client.chat.completions.create(
+                            model="llama-3.3-70b-versatile",
+                            messages=[{"role": "user", "content": prompt}],
+                            temperature=0.0
+                        )
+                        class GroqResponse:
+                            def __init__(self, text):
+                                self.text = text
+                        return GroqResponse(response.choices[0].message.content)
+                    except Exception as groq_e:
+                        print(f"Groq fallback also failed: {groq_e}")
+                        raise e
+            raise
+
+
 def query_raw_llm(question):
     """Send question directly to LLM with no retrieval context"""
 
@@ -27,10 +62,7 @@ Answer:"""
 
     start_time = time.time()
 
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt
-    )
+    response = call_gemini_with_retry(client, prompt)
 
     end_time = time.time()
     latency = round(end_time - start_time, 2)

@@ -99,6 +99,41 @@ def count_tokens(text: str) -> int:
     return len(text.split()) * 4 // 3
 
 
+def call_gemini_with_retry(client, prompt: str, retries: int = 3):
+    """Call Gemini API with exponential backoff retry for 503/429 errors."""
+    for attempt in range(retries):
+        try:
+            return client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=prompt
+            )
+        except Exception as e:
+            if "503" in str(e) or "429" in str(e) or "quota" in str(e).lower():
+                if attempt < retries - 1:
+                    print(f"Gemini API unavailable. Retrying in {2 ** attempt}s...")
+                    time.sleep(2 ** attempt)
+                    continue
+                else:
+                    print(f"Gemini API failed after {retries} attempts. Falling back to Groq Llama 3.3 70B...")
+                    try:
+                        import os
+                        from groq import Groq
+                        groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+                        response = groq_client.chat.completions.create(
+                            model="llama-3.3-70b-versatile",
+                            messages=[{"role": "user", "content": prompt}],
+                            temperature=0.0
+                        )
+                        class GroqResponse:
+                            def __init__(self, text):
+                                self.text = text
+                        return GroqResponse(response.choices[0].message.content)
+                    except Exception as groq_e:
+                        print(f"Groq fallback also failed: {groq_e}")
+                        raise e
+            raise
+
+
 async def run_raw_llm(question: str) -> PipelineResponse:
     """Run the simple raw LLM pipeline (Pipeline 1 basic)."""
     from google import genai as genai_module
@@ -117,9 +152,9 @@ Answer:"""
 
     start = time.time()
     response = await asyncio.to_thread(
-        llm_client.models.generate_content,
-        model="gemini-2.5-flash",
-        contents=prompt
+        call_gemini_with_retry,
+        llm_client,
+        prompt
     )
     latency = round(time.time() - start, 2)
 
@@ -218,9 +253,9 @@ ANSWER (based on the provided context):"""
 
     gen_start = time.time()
     response = await asyncio.to_thread(
-        llm_client.models.generate_content,
-        model="gemini-2.5-flash",
-        contents=prompt
+        call_gemini_with_retry,
+        llm_client,
+        prompt
     )
     gen_time = round(time.time() - gen_start, 2)
 

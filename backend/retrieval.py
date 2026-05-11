@@ -235,11 +235,20 @@ Question: {question}
 Ideal research paper excerpt:"""
 
         try:
-            response = self.llm_client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=prompt
-            )
-            return response.text
+            for attempt in range(3):
+                try:
+                    response = self.llm_client.models.generate_content(
+                        model="gemini-2.5-flash",
+                        contents=prompt
+                    )
+                    return response.text
+                except Exception as e:
+                    if "503" in str(e) or "429" in str(e) or "quota" in str(e).lower():
+                        if attempt < 2:
+                            print(f"Gemini API unavailable during HyDE. Retrying in {2 ** attempt}s...")
+                            time.sleep(2 ** attempt)
+                            continue
+                    raise
         except Exception as e:
             print(f"HyDE generation failed: {e}")
             return question
@@ -341,11 +350,20 @@ Retrieved Context:
 Compressed relevant context (keep chunk labels):"""
 
         try:
-            response = self.llm_client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=prompt
-            )
-            return response.text
+            for attempt in range(3):
+                try:
+                    response = self.llm_client.models.generate_content(
+                        model="gemini-2.5-flash",
+                        contents=prompt
+                    )
+                    return response.text
+                except Exception as e:
+                    if "503" in str(e) or "429" in str(e) or "quota" in str(e).lower():
+                        if attempt < 2:
+                            print(f"Gemini API unavailable during compression. Retrying in {2 ** attempt}s...")
+                            time.sleep(2 ** attempt)
+                            continue
+                    raise
         except Exception as e:
             print(f"Context compression failed: {e}")
             return full_context

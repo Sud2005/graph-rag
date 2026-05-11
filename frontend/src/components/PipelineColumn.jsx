@@ -150,7 +150,7 @@ export default function PipelineColumn({ name, label, color, result, loading, er
                             {cit.section} | Score: {cit.relevance_score?.toFixed(3)}
                           </span>
                         </div>
-                        <p className="text-text-secondary">{cit.snippet}</p>
+                        <p className="text-text-secondary">{cit.snippet.replace(/<\/?[^>]+(>|$)/g, "")}</p>
                       </div>
                     ))}
                   </div>
