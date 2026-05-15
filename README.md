@@ -1,7 +1,7 @@
 # GraphRAG Benchmark
 
 A production-grade benchmarking system comparing **Raw LLM**, **Basic RAG**, **Advanced RAG**, and **GraphRAG** pipelines for answering biomedical research questions. Built with Gemini 2.5 Flash, ChromaDB, and React.
-
+#to implement some sort of graph rag system 
 ## Pipelines
 
 | Pipeline | Description | Retrieval | Features |
