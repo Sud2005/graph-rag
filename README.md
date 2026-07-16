@@ -1,3 +1,18 @@
+1) init_shard("/data/user/0/com.example.thought_graph_app/app_flutter/qdrant_edge_test")
+   ✓ shard initialized
+
+2) embed_text — real semantic embeddings
+
+❌ FAILED: failed to load embedding model: Failed to retrieve model.onnx
+
+#0      SimpleDecoder.decode (package:flutter_rust_bridge/src/codec/base.dart:32)
+#1      SseCodec._decode (package:flutter_rust_bridge/src/codec/sse.dart:45)
+#2      SseCodec.decodeObject (package:flutter_rust_bridge/src/codec/sse.dart:35)
+<asynchronous suspension>
+#3      _RustTestScreenState._runTest (package:thought_graph_app/main.dart:99)
+<asynchronous suspension>
+
+
 ) init_shard("/data/user/0/com.example.thought_graph_app/app_flutter/qdrant_edge_test")
    ✓ shard initialized
 
