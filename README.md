@@ -1,3 +1,18 @@
+) init_shard("/data/user/0/com.example.thought_graph_app/app_flutter/qdrant_edge_test")
+   ✓ shard initialized
+
+2) embed_text — real semantic embeddings
+
+❌ FAILED: PanicException(Cache directory cannot be found)
+
+#0      SimpleDecoder.decode (package:flutter_rust_bridge/src/codec/base.dart:35)
+#1      SseCodec._decode (package:flutter_rust_bridge/src/codec/sse.dart:45)
+#2      SseCodec.decodeWireSyncType (package:flutter_rust_bridge/src/codec/sse.dart:40)
+#3      BaseHandler.executeSync (package:flutter_rust_bridge/src/main_components/handler.dart:34)
+#4      RustLibApiImpl.crateApiSimpleEmbedText (package:thought_graph_app/src/rust/frb_generated.dart:110)
+#5      embedText (package:thought_graph_app/src/rust/api/simple.dart:43)
+#6      _RustTestScreenState._runTest (package:thought_graph_app/main.dart:94)
+<asynchronous suspension>
 # GraphRAG Benchmark
 
 A production-grade benchmarking system comparing **Raw LLM**, **Basic RAG**, **Advanced RAG**, and **GraphRAG** pipelines for answering biomedical research questions. Built with Gemini 2.5 Flash, ChromaDB, and React.
