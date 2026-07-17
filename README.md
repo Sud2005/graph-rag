@@ -1,3 +1,36 @@
+ initShard
+   ✓ shard created at /data/user/0/com.example.thought_graph_app/app_flutter/qdrant_edge_python_test (dim=384), points_count=0
+
+2) upsertMemory — storing 2 fake vectors
+
+❌ PlatformException: TypeError: 'Collections$SingletonList' object is not iterable
+
+com.chaquo.python.PyException: TypeError: 'Collections$SingletonList' object is not iterable
+	at <python>.chaquopy_java.call(chaquopy_java.pyx:352)
+	at <python>.chaquopy_java.Java_com_chaquo_python_PyObject_callAttrThrowsNative(chaquopy_java.pyx:324)
+	at com.chaquo.python.PyObject.callAttrThrowsNative(Native Method)
+	at com.chaquo.python.PyObject.callAttrThrows(r8-map-id-b9b722656810a95d70e571e3271195c28545127149b82340774d43e4d10f3e66:1)
+	at com.chaquo.python.PyObject.callAttr(r8-map-id-b9b722656810a95d70e571e3271195c28545127149b82340774d43e4d10f3e66:1)
+	at q0.a.b(r8-map-id-b9b722656810a95d70e571e3271195c28545127149b82340774d43e4d10f3e66:580)
+	at b2.b.h(r8-map-id-b9b722656810a95d70e571e3271195c28545127149b82340774d43e4d10f3e66:26)
+	at q1.c.run(r8-map-id-b9b722656810a95d70e571e3271195c28545127149b82340774d43e4d10f3e66:128)
+	at android.os.Handler.handleCallback(Handler.java:942)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loopOnce(Looper.java:211)
+	at android.os.Looper.loop(Looper.java:300)
+	at android.app.ActivityThread.main(ActivityThread.java:8503)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:561)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:954)
+
+
+
+
+
+
+	
+
+
 tShard
    ✓ shard created at /data/user/0/com.example.thought_graph_app/app_flutter/qdrant_edge_python_test (dim=384), points_count=0
 
