@@ -1,3 +1,25 @@
+1) initShard
+   ✓ shard created at /data/user/0/com.example.thought_graph_app/app_flutter/qdrant_edge_python_test (dim=384), points_count=0
+
+2) upsertMemory — storing 2 fake vectors
+   ✓ upserted 11111111-1111-1111-1111-111111111111, points_count now=1
+   ✓ upserted 22222222-2222-2222-2222-222222222222, points_count now=2
+
+3) searchMemories — querying with vector close to A
+   ✓ search returned 2 hit(s):
+     - id=11111111-1111-1111-1111-111111111111  score=0.9879951477050781  payload={'handle': 'fake memory A'}
+     - id=22222222-2222-2222-2222-222222222222  score=0.6173088550567627  payload={'handle': 'fake memory B'}
+
+✅ Full init → upsert → search loop works via Python/Chaquopy.
+
+
+
+
+
+
+ 
+ 
+ 
  initShard
    ✓ shard created at /data/user/0/com.example.thought_graph_app/app_flutter/qdrant_edge_python_test (dim=384), points_count=0
 
