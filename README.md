@@ -1,3 +1,32 @@
+tShard
+   ✓ shard created at /data/user/0/com.example.thought_graph_app/app_flutter/qdrant_edge_python_test (dim=384), points_count=0
+
+2) upsertMemory — storing 2 fake vectors
+
+❌ PlatformException: TypeError: argument 'points': 'Collections$SingletonList' object is not an instance of 'Sequence'
+
+com.chaquo.python.PyException: TypeError: argument 'points': 'Collections$SingletonList' object is not an instance of 'Sequence'
+	at <python>.chaquopy_java.call(chaquopy_java.pyx:352)
+	at <python>.chaquopy_java.Java_com_chaquo_python_PyObject_callAttrThrowsNative(chaquopy_java.pyx:324)
+	at com.chaquo.python.PyObject.callAttrThrowsNative(Native Method)
+	at com.chaquo.python.PyObject.callAttrThrows(r8-map-id-a2a374e083dd53b169443c49d8df15792893337ebf090ffd541d1dcd5a74db7d:1)
+	at com.chaquo.python.PyObject.callAttr(r8-map-id-a2a374e083dd53b169443c49d8df15792893337ebf090ffd541d1dcd5a74db7d:1)
+	at o0.c.b(r8-map-id-a2a374e083dd53b169443c49d8df15792893337ebf090ffd541d1dcd5a74db7d:580)
+	at b2.b.h(r8-map-id-a2a374e083dd53b169443c49d8df15792893337ebf090ffd541d1dcd5a74db7d:26)
+	at q1.c.run(r8-map-id-a2a374e083dd53b169443c49d8df15792893337ebf090ffd541d1dcd5a74db7d:128)
+	at android.os.Handler.handleCallback(Handler.java:942)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loopOnce(Looper.java:211)
+	at android.os.Looper.loop(Looper.java:300)
+	at android.app.ActivityThread.main(ActivityThread.java:8503)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:561)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:954)
+
+
+	
+
+
 ) initShard
    ✓ shard created at /data/user/0/com.example.thought_graph_app/app_flutter/qdrant_edge_python_test (dim=384), points_count=0
 
