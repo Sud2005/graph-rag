@@ -1,3 +1,24 @@
+❌ PlatformException: Exception: Service runtime error: failed to create WAL directory: failed to create directory `/data/user/0/com.example.thought_graph_app/app_flutter/qdrant_edge_python_test/wal`: No such file or directory (os error 2)
+
+com.chaquo.python.PyException: Exception: Service runtime error: failed to create WAL directory: failed to create directory `/data/user/0/com.example.thought_graph_app/app_flutter/qdrant_edge_python_test/wal`: No such file or directory (os error 2)
+	at <python>.chaquopy_java.call(chaquopy_java.pyx:352)
+	at <python>.chaquopy_java.Java_com_chaquo_python_PyObject_callAttrThrowsNative(chaquopy_java.pyx:324)
+	at com.chaquo.python.PyObject.callAttrThrowsNative(Native Method)
+	at com.chaquo.python.PyObject.callAttrThrows(r8-map-id-3809493d95322eab3f73b67b8e6840614b2056f8f2f32adf47ba5acdbbc8c662:1)
+	at com.chaquo.python.PyObject.callAttr(r8-map-id-3809493d95322eab3f73b67b8e6840614b2056f8f2f32adf47ba5acdbbc8c662:1)
+	at q0.a.b(r8-map-id-3809493d95322eab3f73b67b8e6840614b2056f8f2f32adf47ba5acdbbc8c662:129)
+	at b2.b.h(r8-map-id-3809493d95322eab3f73b67b8e6840614b2056f8f2f32adf47ba5acdbbc8c662:26)
+	at q1.c.run(r8-map-id-3809493d95322eab3f73b67b8e6840614b2056f8f2f32adf47ba5acdbbc8c662:128)
+	at android.os.Handler.handleCallback(Handler.java:942)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loopOnce(Looper.java:211)
+	at android.os.Looper.loop(Looper.java:300)
+	at android.app.ActivityThread.main(ActivityThread.java:8503)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:561)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:954)
+
+
 1) init_shard("/data/user/0/com.example.thought_graph_app/app_flutter/qdrant_edge_test")
    ✓ shard initialized
 
